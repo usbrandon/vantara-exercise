@@ -1,0 +1,12 @@
+- hosts: "localhost"
+  connection: "local"
+  gather_facts: false
+
+  tasks:
+    - name: delete a stack
+      cloudformation:
+        stack_name: "Drupal-DrupalStack-1KCPSP9GKVM6H-WebserverStack-XUMNDJYFX8L1"
+        state: "absent"
+        aws_access_key: "AKIAV2ISBBIM7ZY6DFOF"
+        aws_secret_key: "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"
+        region: "us-east-1"
