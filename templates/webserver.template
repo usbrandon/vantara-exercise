@@ -81,18 +81,18 @@
         }
     },
     "Parameters": {
-        "QSS3BucketName": {
-            "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
-            "ConstraintDescription": "AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "aws-quickstart",
-            "Description": "S3 bucket name for the AWS Quick Start assets. AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+        "GitHubUser": {
+            "AllowedPattern": "^[0-9a-z-]*$",
+            "ConstraintDescription": "GitHub User can include numbers, lowercase letters and hyphens (-). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "Default": "quickstart-drupal/",
+            "Description": "GitHub User for the AWS Quick Start assets. AWS Quick Start GitHub User can include numbers, lowercase letters and hyphens (-). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Type": "String"
         },
-        "QSS3KeyPrefix": {
-            "AllowedPattern": "^[0-9a-zA-Z-/]*$",
-            "ConstraintDescription": "AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+        "GitHubProject": {
+            "AllowedPattern": "^[0-9a-z-]*$",
+            "ConstraintDescription": "GitHub Project can include numbers, lowercase letters and hyphens (-). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Default": "quickstart-drupal/",
-            "Description": "S3 key prefix for the AWS Quick Start assets.AWS Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.",
+            "Description": "GitHub Project for the AWS Quick Start assets. AWS Quick Start GitHub User can include numbers, lowercase letters and hyphens (-). It cannot start or end with forward slash (/) because they are automatically appended.",
             "Type": "String"
         },
         "AutoScalingNotificationEmail": {
@@ -1594,7 +1594,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/create-ami.template"
+                    "Fn::Sub": "https://github.com/${GitHubUser}${GitHubProject}templates/create-ami.template"
                 },
                 "Parameters": {
                     "EC2InstanceId": {
@@ -1866,7 +1866,7 @@
             "Condition": "DrupalCdnModuleCondition",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/cloudfront.template"
+                    "Fn::Sub": "https://github.com/${GitHubUser}${GitHubProject}templates/cloudfront.template"
                 },
                 "Parameters": {
                     "OriginDnsName": {
